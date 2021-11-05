@@ -13,6 +13,7 @@ This pair-programming project aimed to ensure extra practice in React Router, us
 - With application of the React Router "App depth" has few pages
 - Individual movie details page with synopsis and extra data
 - Ability to shortlist movies depending on its popularity, rating and actuality.
+- Surprise button that pics a random movie.
 - Accessible, user-friendly and eye-catching design
 
 ## View it live

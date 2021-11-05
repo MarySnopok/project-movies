@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import moment from "moment";
-//three api end points
 import { API_MOVIE_LIST_POPULAR } from "./Links";
 import { API_MOVIE_LIST_TOP_RATED } from "./Links";
 import { API_MOVIE_LIST_UPCOMING } from "./Links";
+import { RandomButton } from "./RandomButton";
 import { OverLay } from "./OverLay";
 import { Select } from "./Select";
 import { Loader } from "./Loader";
@@ -16,7 +16,23 @@ export const MovieList = () => {
 
   // special state to hold current state of the select
   const [change, changeTracker] = useState("popular");
-  console.log("change", change);
+  const history = useHistory();
+
+  const onRandomButtonClick = () => {
+    //picking a random page out of top rated movie API end point
+    const randomNumber = Math.floor(Math.random() * 450);
+    const url = `https://api.themoviedb.org/3/movie/top_rated?api_key=4cfc03c4e32397dfd5018e9bb30b640c&language=en-US&page=${randomNumber}`;
+    fetch(url)
+      .then((res) => res.json())
+      .then((json) => {
+        //picking a random movie out of the json that we fetched
+        const randomMovie = Math.floor(Math.random() * json.results.length);
+        // picking an id of the random movie we fetched and selected above
+        const randomMovieID = json.results[randomMovie].id;
+        // redirecting the user to the correct routing path
+        history.push(`/movieDetails/${randomMovieID}`);
+      });
+  };
 
   useEffect(() => {
     // declaring a variable that will act as a dynamic stitcher for the api link
@@ -43,7 +59,9 @@ export const MovieList = () => {
 
   return (
     <>
-      <Select change={change} changeTracker={changeTracker} />
+      <div className="options-pick">
+        <Select change={change} changeTracker={changeTracker} /> <span className="or">OR</span> <RandomButton onRandomButtonClick={onRandomButtonClick} />
+      </div>
       <div className="grid">
         {(loading && (
           <div className="loader-wrapper">

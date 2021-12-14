@@ -35,7 +35,7 @@ export const MovieList = () => {
   };
 
   useEffect(() => {
-    // declaring a variable that will act as a dynamic stitcher for the api link
+    // declaring a variable that will act as a dynamic switcher for the api link
     let URL;
     // if user selected popular we are reassigning the URL variable to the related API link
     //similar with other 2 end points
@@ -54,7 +54,7 @@ export const MovieList = () => {
         setMovies(json.results);
         setLoading(false);
       });
-    //also to make useeffect catch the change in current state of the selector we are passing the change as a dependency
+    //also to make useEffect catch the change in current state of the selector we are passing the change as a dependency
   }, [setLoading, change]);
 
   return (

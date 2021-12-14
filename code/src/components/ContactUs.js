@@ -1,7 +1,5 @@
 import React from "react";
 
-// thought to be fun to have one extra page to "fake" navbar
-
 export const ContactUs = () => {
   return (
     <div className="contact-us">
